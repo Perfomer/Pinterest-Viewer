@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".presentation.details.DetailsActivity"
+    tools:context=".clean.presentation.details.DetailsActivity"
     tools:ignore="ContentDescription,UseCompoundDrawables">
 
     <RelativeLayout
@@ -76,6 +76,16 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/details_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:textSize="12sp"
+                android:textColor="@color/gray"
+                tools:text="21 April 2018, 16:05" />
+
+            <TextView
                 android:id="@+id/details_tags_header"
                 style="@style/HeaderTextStyle"
                 android:layout_width="wrap_content"
@@ -117,7 +127,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="24dp"
                 android:background="@color/colorChipBackground" />
 
             <TextView
@@ -201,14 +211,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 tools:listitem="@layout/details_item_comment"
-                tools:maxItems="3"
-                android:layout_marginTop="16dp" />
+                tools:maxItems="3" />
 
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/details_act_back"
+            android:id="@+id/details_back"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentStart="true"

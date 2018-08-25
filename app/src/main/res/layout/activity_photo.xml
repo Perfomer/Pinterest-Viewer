@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:transitionGroup="false"
-    tools:context=".presentation.photo.PhotoActivity">
+    tools:context=".clean.presentation.photo.PhotoActivity">
 
     <ImageView
         android:id="@+id/fullitem_image"
