@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.volkovmedia.perfo.pinterestviewer.R
 import com.volkovmedia.perfo.pinterestviewer.data.entity.FeedItem
 import com.volkovmedia.perfo.pinterestviewer.data.parsers.ChannelPageParser
@@ -18,6 +19,7 @@ import com.volkovmedia.perfo.pinterestviewer.presentation.feed.adapter.ImagesAda
 import com.volkovmedia.perfo.pinterestviewer.presentation.feed.adapter.pagination.FeedDataSourceFactory
 import com.volkovmedia.perfo.pinterestviewer.presentation.feed.adapter.pagination.PhotoDiffUtilCallback
 import com.volkovmedia.perfo.pinterestviewer.presentation.photo.PhotoActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.experimental.launch
 import java.util.concurrent.Executors
 
@@ -29,9 +31,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recycler = findViewById<RecyclerView>(R.id.recycler)
-        recycler.layoutManager = GridLayoutManager(this, 3)
-        recycler.adapter = imagesAdapter
+        with(recycler) {
+            layoutManager = GridLayoutManager(this@MainActivity, 3)
+            adapter = imagesAdapter
+        }
 
         val config = PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
