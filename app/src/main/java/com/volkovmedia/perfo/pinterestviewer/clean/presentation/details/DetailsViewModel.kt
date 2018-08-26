@@ -10,7 +10,7 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.launch
 
-class DetailsViewModel : ViewModel() {
+class DetailsViewModel(private val detailsProvideInteractor: DetailsProvideInteractor) : ViewModel() {
 
     val item: LiveData<FeedItem>
         get() = itemLiveData
@@ -21,8 +21,6 @@ class DetailsViewModel : ViewModel() {
     private val itemLiveData = MutableLiveData<FeedItem>()
 
     private val detailsLiveData = MutableLiveData<FeedItemDetails>()
-
-    private lateinit var detailsProvideInteractor: DetailsProvideInteractor
 
     fun setItem(item: FeedItem) {
         itemLiveData.postValue(item)

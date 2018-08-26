@@ -1,11 +1,9 @@
 package com.volkovmedia.perfo.pinterestviewer.clean.data.parsers
 
-import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.Comment
-import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItemDetails
-import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.Tag
-import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.User
+import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.*
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageParser
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageRequest
+import com.volkovmedia.perfo.pinterestviewer.clean.domain.ROOT_URL
 import com.volkovmedia.perfo.pinterestviewer.utils.extensions.parseTime
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -14,24 +12,25 @@ import org.jsoup.nodes.Element
 class DetailsPageParser(): PageParser<FeedItemDetails> {
 
     override fun request(request: PageRequest): FeedItemDetails {
-        val document = Jsoup.connect(request.url).get()
+        val document = Jsoup.connect(ROOT_URL.dropLast(1) + request.url).get()
 
-        val hostName = document.getElementsByAttribute("data-hostname")
+        val hostName = document.getElementsByClass("image_frame")
         val author = document.getElementsByAttributeValue("itemprop", "author")[0]
 
-        val outUrl = hostName.find { it.hasClass("btn") }!!.attr("href")
-        val imageUrl = hostName.find { !it.hasClass("btn") }!!.attr("href")
+        val outUrl = hostName.select("a")?.attr("href")
+        val imageUrl = hostName.select("img")!!.attr("src")
         val time = document.select("time").attr("datetime").parseTime()
         val authorName = author.text()
         val authorUrl = author.parent().attr("href")
         val comments = document.comments
         val tags = document.tags
         val videoUrl = document.select("video").attr("src")
+        val thumbnail = document.getElementsByClass("big_thumbnail")[0].select("img").attr("src")
 
         return if (videoUrl.isNullOrBlank()) {
-            FeedItemDetails.ImageDetails(outUrl, imageUrl, time, authorName, authorUrl, comments, tags)
+            FeedItemDetails.ImageDetails(outUrl, imageUrl, time, Channel(authorName, authorUrl, thumbnail), comments, tags)
         } else {
-            FeedItemDetails.VideoDetails(outUrl, imageUrl, time, authorName, authorUrl, comments, tags, videoUrl)
+            FeedItemDetails.VideoDetails(outUrl, imageUrl, time, Channel(authorName, authorUrl, thumbnail), comments, tags, videoUrl)
         }
     }
 
@@ -57,11 +56,17 @@ class DetailsPageParser(): PageParser<FeedItemDetails> {
                     .map {
                         val nameElement = it.select("a")
 
-                        val avatar = it.select("img").attr("src")
+                        val avatar = with(it.select("img").attr("src")) {
+                            if (!startsWith("http")) ROOT_URL.dropLast(1) + this
+                            else this
+                        }
                         val name = nameElement.text()
                         val url = nameElement.attr("href")
 
-                        val text = it.getElementsByClass("text").text()
+                        val text = it.getElementsByClass("text")
+                                .html()
+                                .substringAfter("<br>")
+                                .trim()
 
                         return@map Comment(text, User(name, avatar, url))
                     }

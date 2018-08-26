@@ -1,6 +1,6 @@
 package com.volkovmedia.perfo.pinterestviewer.clean.data.parsers
 
-import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.Channel
+import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.ChannelDetails
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.User
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageParser
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageRequest
@@ -8,9 +8,9 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class ChannelPageParser(): PageParser<Channel> {
+class ChannelPageParser(): PageParser<ChannelDetails> {
 
-    override fun request(request: PageRequest): Channel {
+    override fun request(request: PageRequest): ChannelDetails {
         val url = request.url
         val document = Jsoup.connect(url).get()
 
@@ -22,7 +22,7 @@ class ChannelPageParser(): PageParser<Channel> {
         val author = document.author
         val followers = document.followers
 
-        return Channel(channelName, url, followersCount, pinsCount, author, followers)
+        return ChannelDetails(channelName, url, followersCount, pinsCount, author, followers)
     }
 
     private companion object {

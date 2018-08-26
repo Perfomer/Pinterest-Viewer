@@ -6,7 +6,4 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Channel(val name: String,
                    val url: String,
-                   val followersCount: Int,
-                   val pinCount: Int,
-                   val author: User,
-                   val followers: List<User>): Parcelable
+                   val thumbnailsUrl: String): Parcelable

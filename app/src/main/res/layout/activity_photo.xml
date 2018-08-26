@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fullitem_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:transitionGroup="false"
+    android:background="@android:color/black"
     tools:context=".clean.presentation.photo.PhotoActivity">
 
-    <ImageView
-        android:id="@+id/fullitem_image"
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/photo_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        android:keepScreenOn="true" />
+        android:keepScreenOn="true"
+        android:scaleType="fitCenter"
+        tools:src="@drawable/test_ass" />
 
 </FrameLayout>

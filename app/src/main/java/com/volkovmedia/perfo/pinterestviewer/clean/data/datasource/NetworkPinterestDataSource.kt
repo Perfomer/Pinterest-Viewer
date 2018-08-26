@@ -1,6 +1,6 @@
 package com.volkovmedia.perfo.pinterestviewer.clean.data.datasource
 
-import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.Channel
+import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.ChannelDetails
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItemDetails
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.ChannelPageParser
@@ -23,7 +23,7 @@ class NetworkPinterestDataSource: PinterestRepository {
         return detailsParser.request(pageRequest)
     }
 
-    override fun getChannel(pageRequest: PageRequest): Channel {
+    override fun getChannel(pageRequest: PageRequest): ChannelDetails {
         return channelParser.request(pageRequest)
     }
 

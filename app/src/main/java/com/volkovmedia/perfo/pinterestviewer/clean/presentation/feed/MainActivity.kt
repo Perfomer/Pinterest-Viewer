@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 .setFetchExecutor(Executors.newSingleThreadExecutor())
                 .build()
 
-        launch { DetailsPageParser().request(PageRequest("http://www.sex.com/pin/56471859-stormi/"))
+        launch { DetailsPageParser().request(PageRequest("/pin/56471859-stormi/"))
             FeedPageParser().request(PageRequest("http://www.sex.com/user/boxlunch/heat-in-motion/"))
             ChannelPageParser().request(PageRequest("http://www.sex.com/user/boxlunch/heat-in-motion/"))
         /* http://www.sex.com/user/boxlunch/heat-in-motion/ */ }
