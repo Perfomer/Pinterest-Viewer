@@ -3,14 +3,13 @@ package com.volkovmedia.perfo.pinterestviewer.clean.presentation.photo
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.volkovmedia.perfo.pinterestviewer.R
-import kotlinx.android.synthetic.main.activity_photo.*
+import com.volkovmedia.perfo.pinterestviewer.utils.extensions.load
+import kotlinx.android.synthetic.main.photo_activity.*
 import org.koin.android.architecture.ext.viewModel
 
 class PhotoActivity : AppCompatActivity() {
@@ -21,7 +20,7 @@ class PhotoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_photo)
+        setContentView(R.layout.photo_activity)
 
         val previewUrl = intent.getStringExtra(KEY_PREVIEW_URL)
         val fullUrl = intent.getStringExtra(KEY_FULL_URL)
@@ -34,12 +33,7 @@ class PhotoActivity : AppCompatActivity() {
         }
     }
 
-    private fun Drawable.render() {
-        Glide.with(this@PhotoActivity)
-                .load(this)
-                .apply(RequestOptions.centerInsideTransform())
-                .into(photoView)
-    }
+    private fun Drawable.render() = photoView.load(this) { requestOptions = RequestOptions.centerInsideTransform() }
 
     companion object {
 

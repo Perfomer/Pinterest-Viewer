@@ -2,30 +2,24 @@ package com.volkovmedia.perfo.pinterestviewer.clean.data.parsers
 
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.*
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageParser
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageRequest
 import com.volkovmedia.perfo.pinterestviewer.clean.domain.ROOT_URL
 import com.volkovmedia.perfo.pinterestviewer.utils.extensions.parseTime
-import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class DetailsPageParser(): PageParser<FeedItemDetails> {
+class DetailsPageParser(): PageParser<FeedItemDetails>() {
 
-    override fun request(request: PageRequest): FeedItemDetails {
-        val document = Jsoup.connect(ROOT_URL.dropLast(1) + request.url).get()
-
-        val hostName = document.getElementsByClass("image_frame")
-        val author = document.getElementsByAttributeValue("itemprop", "author")[0]
+    override fun Document.parse(): FeedItemDetails {
+        val hostName = getElementsByClass("image_frame")
+        val author = getElementsByClass("title").select("a")[0]
 
         val outUrl = hostName.select("a")?.attr("href")
         val imageUrl = hostName.select("img")!!.attr("src")
-        val time = document.select("time").attr("datetime").parseTime()
+        val time = select("time").attr("datetime").parseTime()
         val authorName = author.text()
-        val authorUrl = author.parent().attr("href")
-        val comments = document.comments
-        val tags = document.tags
-        val videoUrl = document.select("video").attr("src")
-        val thumbnail = document.getElementsByClass("big_thumbnail")[0].select("img").attr("src")
+        val authorUrl = author.attr("href")
+        val videoUrl = select("video").attr("src")
+        val thumbnail = getElementsByClass("big_thumbnail")[0].select("img").attr("src")
 
         return if (videoUrl.isNullOrBlank()) {
             FeedItemDetails.ImageDetails(outUrl, imageUrl, time, Channel(authorName, authorUrl, thumbnail), comments, tags)
@@ -60,6 +54,7 @@ class DetailsPageParser(): PageParser<FeedItemDetails> {
                             if (!startsWith("http")) ROOT_URL.dropLast(1) + this
                             else this
                         }
+
                         val name = nameElement.text()
                         val url = nameElement.attr("href")
 

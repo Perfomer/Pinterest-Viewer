@@ -4,9 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ChannelDetails(val name: String,
-                          val url: String,
-                          val followersCount: Int,
+data class ChannelDetails(val followersCount: Int,
                           val pinCount: Int,
                           val author: User,
-                          val followers: List<User>): Parcelable
+                          val followers: List<User>) : Parcelable

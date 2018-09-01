@@ -80,16 +80,18 @@
             <ProgressBar
                 android:id="@+id/details_progressbar"
                 android:layout_width="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_height="wrap_content" />
+                android:layout_marginTop="20dp"
+                tools:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/details_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                tools:visibility="visible">
 
                 <TextView
                     android:id="@+id/details_date"
@@ -141,8 +143,10 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.constraint.ConstraintLayout
+                    android:id="@+id/details_channel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
@@ -169,12 +173,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        tools:text="Favoritessssss"
                         android:textColor="@android:color/black"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/details_channel_hint"
                         app:layout_constraintStart_toEndOf="@+id/details_channel_thumbnail"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Favoritessssss" />
 
                     <TextView
                         android:id="@+id/details_channel_hint"
@@ -199,7 +203,6 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="20dp"
                         android:background="@color/colorChipBackground" />
 
                     <TextView
@@ -215,10 +218,10 @@
                         android:id="@+id/details_comments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingEnd="16dp"
-                        android:paddingStart="16dp"
                         android:layout_marginTop="16dp"
                         android:clipToPadding="false"
+                        android:paddingEnd="16dp"
+                        android:paddingStart="16dp"
                         tools:listitem="@layout/details_item_comment"
                         tools:maxItems="3" />
 

@@ -1,16 +1,16 @@
 package com.volkovmedia.perfo.pinterestviewer.clean.domain.repository
 
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.ChannelDetails
-import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItemDetails
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageRequest
+import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItemDetails
+import org.jsoup.nodes.Document
 
 interface PinterestRepository {
 
-    fun getFeedItems(pageRequest: PageRequest): List<FeedItem>
+    fun getFeedItems(url: String): List<FeedItem>
 
-    fun getFeedItemDetails(pageRequest: PageRequest): FeedItemDetails
+    fun getFeedItemDetails(url: String): FeedItemDetails
 
-    fun getChannel(pageRequest: PageRequest): ChannelDetails
+    fun getChannelDetails(url: String): ChannelDetails
 
 }

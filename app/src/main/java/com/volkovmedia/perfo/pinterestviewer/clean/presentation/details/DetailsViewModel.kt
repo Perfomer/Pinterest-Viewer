@@ -24,9 +24,7 @@ class DetailsViewModel(private val detailsProvideInteractor: DetailsProvideInter
 
     fun setItem(item: FeedItem) {
         itemLiveData.postValue(item)
-
-        val bundle = async { detailsProvideInteractor.provideBundle(item) }
-        launch(UI) { detailsLiveData.postValue(bundle.await()) }
+        launch { detailsLiveData.postValue(detailsProvideInteractor.requestDetails(item)) }
     }
 
 }

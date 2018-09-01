@@ -4,14 +4,13 @@ import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageParser
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageRequest
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import java.util.concurrent.TimeUnit
 
-class FeedPageParser(): PageParser<List<FeedItem>> {
+class FeedPageParser() : PageParser<List<FeedItem>>() {
 
-    override fun request(request: PageRequest) = Jsoup.connect(request.getPagedUrl())
-            .get()
-            .getElementsByClass("masonry_box small_pin_box")
+    override fun Document.parse() = getElementsByClass("masonry_box small_pin_box")
             .map {
                 val imageWrapper = it.getElementsByClass("image_wrapper")[0]
                 val smallButtons = it.getElementsByClass("btn-sm")
@@ -23,15 +22,13 @@ class FeedPageParser(): PageParser<List<FeedItem>> {
                 val title = imageWrapper.attr("title")
                 val imageUrl = imageWrapper.select("img").attr("data-src")
                 val duration = it.duration
-                val hd = it.isHD
 
                 return@map if (duration == -1L) {
                     FeedItem.Image(title, imageUrl, fullPageUrl, likesCount, sharesCount, commentsCount)
                 } else {
-                    FeedItem.Video(title, imageUrl, fullPageUrl, likesCount, sharesCount, commentsCount, duration, hd)
+                    FeedItem.Video(title, imageUrl, fullPageUrl, likesCount, sharesCount, commentsCount, duration, it.isHD)
                 }
             }
-
 
     companion object {
 

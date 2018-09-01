@@ -2,9 +2,9 @@ package com.volkovmedia.perfo.pinterestviewer.clean.presentation.details.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import com.bumptech.glide.request.RequestOptions
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.Comment
-import com.volkovmedia.perfo.pinterestviewer.utils.extensions.loadCircleFromUrl
-import com.volkovmedia.perfo.pinterestviewer.utils.extensions.loadFromUrl
+import com.volkovmedia.perfo.pinterestviewer.utils.extensions.load
 import kotlinx.android.synthetic.main.details_item_comment.view.*
 
 class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -17,7 +17,7 @@ class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(item: Comment) {
         with(item.author) {
-            authorAvatar.loadCircleFromUrl(avatarUrl)
+            authorAvatar.load(avatarUrl) { requestOptions = RequestOptions.circleCropTransform() }
             authorName.text = name
         }
 

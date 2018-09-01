@@ -1,7 +1,6 @@
 package com.volkovmedia.perfo.pinterestviewer.clean.presentation.details
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,14 +8,16 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import com.bumptech.glide.request.RequestOptions
 import com.robertlevonyan.views.chip.Chip
 import com.volkovmedia.perfo.pinterestviewer.R
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItemDetails
 import com.volkovmedia.perfo.pinterestviewer.clean.presentation.details.adapter.CommentsAdapter
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.FeedActivity
 import com.volkovmedia.perfo.pinterestviewer.clean.presentation.photo.PhotoActivity
 import com.volkovmedia.perfo.pinterestviewer.utils.extensions.*
-import kotlinx.android.synthetic.main.details_activity.*
+import kotlinx.android.synthetic.main.details_activity_content.*
 import org.koin.android.architecture.ext.viewModel
 
 class DetailsActivity : AppCompatActivity() {
@@ -44,7 +45,7 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.details_activity)
+        setContentView(R.layout.details_activity_content)
 
         details_back.setOnClickListener { onBackPressed() }
 
@@ -61,7 +62,7 @@ class DetailsActivity : AppCompatActivity() {
     private fun FeedItem.render() {
         progressBar.isVisible = true
 
-        image.loadFromUrl(imageUrl)
+        image.load(imageUrl)
         name.text = title
         likesCount.text = likeCount.toString()
         pinsCount.text = shareCount.toString()
@@ -74,7 +75,14 @@ class DetailsActivity : AppCompatActivity() {
 
         with(channel) {
             details_channel_name.text = name
-            details_channel_thumbnail.loadCircleFromUrl(thumbnailsUrl)
+
+            details_channel_thumbnail.load(thumbnailsUrl) {
+                requestOptions = RequestOptions.circleCropTransform()
+            }
+
+            details_channel.setOnClickListener {
+                FeedActivity.startActivity(this@DetailsActivity, this)
+            }
         }
 
         val margin = 4f.toDp(this@DetailsActivity)
@@ -95,9 +103,9 @@ class DetailsActivity : AppCompatActivity() {
             commentsList.adapter = CommentsAdapter().apply {
                 submitList(comments)
             }
-
-            details_root.scrollTo(0, 0)
         }
+
+        details_root.postDelayed({ details_root.smoothScrollTo(0, 0) }, 500)
 
         if (awaitingToOpenFullImage) {
             awaitingToOpenFullImage = false
