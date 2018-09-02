@@ -1,14 +1,12 @@
 package com.volkovmedia.perfo.pinterestviewer.clean.data.parsers
 
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageParser
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageRequest
-import org.jsoup.Jsoup
+import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.JsoupPageParser
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import java.util.concurrent.TimeUnit
 
-class FeedPageParser() : PageParser<List<FeedItem>>() {
+class FeedPageParser() : JsoupPageParser<List<FeedItem>>() {
 
     override fun Document.parse() = getElementsByClass("masonry_box small_pin_box")
             .map {

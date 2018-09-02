@@ -12,8 +12,6 @@ import com.volkovmedia.perfo.pinterestviewer.R
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.Channel
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.CategoriesPageParser
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.DetailsPageParser
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.FeedPageParser
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.FeedPageParser.Companion.PAGE_SIZE
 import com.volkovmedia.perfo.pinterestviewer.clean.domain.ROOT_URL
 import com.volkovmedia.perfo.pinterestviewer.clean.presentation.details.DetailsActivity
@@ -22,15 +20,17 @@ import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.adapter.pag
 import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.adapter.pagination.PhotoDiffUtilCallback
 import com.volkovmedia.perfo.pinterestviewer.di.PARAM_CHANNEL
 import com.volkovmedia.perfo.pinterestviewer.di.PARAM_URL
-import com.volkovmedia.perfo.pinterestviewer.utils.extensions.requestDocument
+import com.volkovmedia.perfo.pinterestviewer.utils.extensions.isVisible
 import com.volkovmedia.perfo.pinterestviewer.utils.extensions.requestPageSource
 import kotlinx.android.synthetic.main.feed_activity.*
+import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
-import org.jsoup.nodes.Document
 import org.koin.android.ext.android.get
 import java.util.concurrent.Executors
 
 class FeedActivity : AppCompatActivity() {
+
+    private val loadingIndicator by lazy { feed_progressbar }
 
     private val imagesAdapter = ImagesAdapter(PhotoDiffUtilCallback(), GridLayoutManager(this, 3), ::onImageClick)
 
@@ -43,7 +43,7 @@ class FeedActivity : AppCompatActivity() {
         val feedTypeInt = intent.getIntExtra(KEY_FEED_TYPE, FeedType.QUERY.ordinal)
         val feedType = FeedType.values()[feedTypeInt]
 
-        when(feedType) {
+        when (feedType) {
             FeedType.QUERY -> {
                 val url = intent.getStringExtra(KEY_URL) ?: ROOT_URL
                 viewModel = get(feedType.name) { mapOf(PARAM_URL to url) }
@@ -57,27 +57,33 @@ class FeedActivity : AppCompatActivity() {
             }
         }
 
-        recycler.adapter = imagesAdapter
+        feed_list.adapter = imagesAdapter
 
+        initPagination()
+    }
+
+    private fun initPagination() {
         val config = PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPageSize(PAGE_SIZE)
                 .setInitialLoadSizeHint(PAGE_SIZE)
                 .build()
 
-        val pagedList = LivePagedListBuilder<Int, FeedItem>(FeedDataSourceFactory(viewModel.url), config)
+        val dataSourceFactory = FeedDataSourceFactory(viewModel.url, ::onInitialLoading, ::onRangeLoading)
+
+        val pagedList = LivePagedListBuilder<Int, FeedItem>(dataSourceFactory, config)
                 .setFetchExecutor(Executors.newSingleThreadExecutor())
                 .build()
 
-        launch {
-            val a = CategoriesPageParser().request("http://www.sex.com/user/boxlunch/heat-in-motion/".requestPageSource())
-            val i = 0
-//            FeedPageParser().request("http://www.sex.com/user/boxlunch/heat-in-motion/".requestDocument())
-//            ChannelPageParser().request("http://www.sex.com/user/boxlunch/heat-in-motion/".requestDocument())
-            /* http://www.sex.com/user/boxlunch/heat-in-motion/ */
-        }
-
         pagedList.observe(this, Observer { imagesAdapter.submitList(it) })
+    }
+
+    private fun onInitialLoading(loading: Boolean) {
+        launch(UI) { loadingIndicator.isVisible = loading }
+    }
+
+    private fun onRangeLoading(loading: Boolean) {
+        launch(UI) { imagesAdapter.loading = loading }
     }
 
     private fun onImageClick(model: FeedItem) {

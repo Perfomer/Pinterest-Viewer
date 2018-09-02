@@ -2,11 +2,11 @@ package com.volkovmedia.perfo.pinterestviewer.clean.data.parsers
 
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.ChannelDetails
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.User
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageParser
+import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.JsoupPageParser
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class ChannelPageParser : PageParser<ChannelDetails>() {
+class ChannelPageParser : JsoupPageParser<ChannelDetails>() {
 
     override fun Document.parse(): ChannelDetails {
         val channelInfo = getElementsByClass("board_info_box")[0]

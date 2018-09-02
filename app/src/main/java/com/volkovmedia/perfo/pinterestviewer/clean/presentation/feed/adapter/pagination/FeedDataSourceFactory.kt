@@ -6,10 +6,13 @@ import com.volkovmedia.perfo.pinterestviewer.clean.domain.interactors.FeedDataPr
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-class FeedDataSourceFactory(private val url: String) : DataSource.Factory<Int, FeedItem>(), KoinComponent {
+class FeedDataSourceFactory(private val url: String,
+                            private val initialLoadingListener: (Boolean) -> Unit,
+                            private val rangeLoadingListener: (Boolean) -> Unit)
+    : DataSource.Factory<Int, FeedItem>(), KoinComponent {
 
     private val feedDataProvideInteractor: FeedDataProvideInteractor by inject()
 
-    override fun create(): DataSource<Int, FeedItem> = FeedDataSource(feedDataProvideInteractor, url)
+    override fun create(): DataSource<Int, FeedItem> = FeedDataSource(feedDataProvideInteractor, url, initialLoadingListener, rangeLoadingListener)
 
 }

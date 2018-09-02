@@ -1,13 +1,13 @@
 package com.volkovmedia.perfo.pinterestviewer.clean.data.parsers
 
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.*
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageParser
+import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.JsoupPageParser
 import com.volkovmedia.perfo.pinterestviewer.clean.domain.ROOT_URL
 import com.volkovmedia.perfo.pinterestviewer.utils.extensions.parseTime
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class DetailsPageParser(): PageParser<FeedItemDetails>() {
+class DetailsPageParser(): JsoupPageParser<FeedItemDetails>() {
 
     override fun Document.parse(): FeedItemDetails {
         val hostName = getElementsByClass("image_frame")

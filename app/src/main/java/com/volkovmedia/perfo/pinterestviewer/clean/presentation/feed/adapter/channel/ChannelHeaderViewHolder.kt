@@ -3,6 +3,7 @@ package com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.adapter.ch
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.NO_POSITION
+import android.view.LayoutInflater
 import android.view.View
 import com.volkovmedia.perfo.pinterestviewer.R
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.Channel

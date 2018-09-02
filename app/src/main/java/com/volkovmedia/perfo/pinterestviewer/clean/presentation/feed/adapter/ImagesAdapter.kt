@@ -22,10 +22,20 @@ class ImagesAdapter(diffUtilCallback: PhotoDiffUtilCallback,
     private lateinit var channel: Channel
     private lateinit var channelDetails: ChannelDetails
 
+    var loading = false
+        set(value) {
+            field = value
+
+            val lastPosition = itemCount - 1
+
+            if (value) notifyItemInserted(lastPosition)
+            else notifyItemRemoved(lastPosition)
+        }
+
     init {
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return if (isChannel(position)) {
+                return if (isHeader(position) || isFooter(position)) {
                     gridLayoutManager.spanCount
                 } else {
                     1
@@ -39,11 +49,24 @@ class ImagesAdapter(diffUtilCallback: PhotoDiffUtilCallback,
         recyclerView.layoutManager = gridLayoutManager
     }
 
+    override fun getItemCount(): Int {
+        var add = 0
+
+        if (::channel.isInitialized) add++
+        if (loading) add++
+
+        return super.getItemCount() + add
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             VT_CHANNEL_HEADER -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.feed_item_channel_header, parent, false)
                 ChannelHeaderViewHolder(view, onFollowClickListener!!)
+            }
+            VT_LOADING_FOOTER -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.feed_item_loading_footer, parent, false)
+                BaseViewHolder(view)
             }
             else -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.feed_item, parent, false)
@@ -53,17 +76,21 @@ class ImagesAdapter(diffUtilCallback: PhotoDiffUtilCallback,
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        if (isChannel(position)) {
-            val channelHeader = holder as ChannelHeaderViewHolder
-            channelHeader.bind(channel, channelDetails)
-        } else {
-            val imageViewHolder = holder as ImageViewHolder
-            imageViewHolder.bind(getItem(position)!!)
+        when (holder.itemViewType) {
+            VT_CHANNEL_HEADER -> {
+                val channelHeader = holder as ChannelHeaderViewHolder
+                channelHeader.bind(channel, channelDetails)
+            }
+            VT_FEED_ITEM -> {
+                val imageViewHolder = holder as ImageViewHolder
+                imageViewHolder.bind(getItem(position)!!)
+            }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (isChannel(position)) VT_CHANNEL_HEADER
+        return if (isHeader(position)) VT_CHANNEL_HEADER
+        else if (isFooter(position)) VT_LOADING_FOOTER
         else VT_FEED_ITEM
     }
 
@@ -77,14 +104,19 @@ class ImagesAdapter(diffUtilCallback: PhotoDiffUtilCallback,
         onClickListener(getItem(position)!!)
     }
 
-    private fun isChannel(position: Int): Boolean {
+    private fun isHeader(position: Int): Boolean {
         return ::channel.isInitialized && position == 0
+    }
+
+    private fun isFooter(position: Int): Boolean {
+        return loading && position == itemCount - 1
     }
 
     private companion object {
 
-        private const val VT_CHANNEL_HEADER = 150
         private const val VT_FEED_ITEM = 100
+        private const val VT_CHANNEL_HEADER = 150
+        private const val VT_LOADING_FOOTER = 200
 
     }
 
