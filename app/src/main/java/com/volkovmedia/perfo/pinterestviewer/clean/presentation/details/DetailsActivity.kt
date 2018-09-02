@@ -18,6 +18,9 @@ import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.FeedActivit
 import com.volkovmedia.perfo.pinterestviewer.clean.presentation.photo.PhotoActivity
 import com.volkovmedia.perfo.pinterestviewer.utils.extensions.*
 import kotlinx.android.synthetic.main.details_activity_content.*
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.launch
 import org.koin.android.architecture.ext.viewModel
 
 class DetailsActivity : AppCompatActivity() {
@@ -71,6 +74,13 @@ class DetailsActivity : AppCompatActivity() {
     private fun FeedItemDetails.render() {
         progressBar.isVisible = false
         details_details.isVisible = true
+
+        val fullImage = async {
+            fullImageUrl.loadImage(this@DetailsActivity) { requestOptions = RequestOptions.centerInsideTransform() }
+        }
+
+        launch(UI) { image.load(fullImage.await()) }
+
         details_date.text = uploadDate.toDateString()
 
         with(channel) {
@@ -95,6 +105,8 @@ class DetailsActivity : AppCompatActivity() {
                 layoutParams = ViewGroup.MarginLayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
                     setMargins(0, margin, margin, margin)
                 }
+
+                setOnChipClickListener { FeedActivity.startActivity(this@DetailsActivity, tag.url) }
             })
         }
 
