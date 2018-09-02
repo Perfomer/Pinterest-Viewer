@@ -28,18 +28,16 @@ class ImagesAdapter(diffUtilCallback: PhotoDiffUtilCallback,
 
             val lastPosition = itemCount - 1
 
-            if (value) notifyItemInserted(lastPosition)
+            if (value) notifyItemInserted(lastPosition + 1)
             else notifyItemRemoved(lastPosition)
         }
 
     init {
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return if (isHeader(position) || isFooter(position)) {
-                    gridLayoutManager.spanCount
-                } else {
-                    1
-                }
+            override fun getSpanSize(position: Int) = if (isHeader(position) || isFooter(position)) {
+                gridLayoutManager.spanCount
+            } else {
+                1
             }
         }
     }
@@ -50,12 +48,12 @@ class ImagesAdapter(diffUtilCallback: PhotoDiffUtilCallback,
     }
 
     override fun getItemCount(): Int {
-        var add = 0
+        var result = super.getItemCount()
 
-        if (::channel.isInitialized) add++
-        if (loading) add++
+//        if (::channel.isInitialized) result++
+//        if (loading) result++
 
-        return super.getItemCount() + add
+        return result
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -88,16 +86,16 @@ class ImagesAdapter(diffUtilCallback: PhotoDiffUtilCallback,
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if (isHeader(position)) VT_CHANNEL_HEADER
-        else if (isFooter(position)) VT_LOADING_FOOTER
-        else VT_FEED_ITEM
+    override fun getItemViewType(position: Int) = when {
+        isHeader(position) -> VT_CHANNEL_HEADER
+        isFooter(position) -> VT_LOADING_FOOTER
+        else -> VT_FEED_ITEM
     }
 
     fun setChannelData(channel: Channel, channelDetails: ChannelDetails) {
         this.channel = channel
         this.channelDetails = channelDetails
-        notifyDataSetChanged()
+        notifyItemInserted(0)
     }
 
     private fun onImageClick(position: Int) {

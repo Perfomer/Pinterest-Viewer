@@ -5,8 +5,12 @@ import org.jsoup.nodes.Document
 
 abstract class JsoupPageParser<T> : PageParser<T> {
 
-    override fun request(html: String): T {
-        return Jsoup.parse(html).parse()
+    override fun request(html: String): RequestResult<T> {
+        return try {
+            RequestResult.Data(Jsoup.parse(html).parse())
+        } catch (ex: Exception) {
+            RequestResult.Error(ex)
+        }
     }
 
     abstract fun Document.parse(): T

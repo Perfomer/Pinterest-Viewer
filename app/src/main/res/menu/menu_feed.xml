@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/menu_feed_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/menu_feed_subscriptions"
+            android:icon="@drawable/ic_feed"
+            android:title="My Feed" />
+
+        <item
+            android:id="@+id/menu_feed_categories"
+            android:icon="@drawable/ic_categories"
+            android:title="Categories" />
+
+    </group>
+
+    <item android:title="Application">
+        <menu>
+
+            <item
+                android:id="@+id/menu_feed_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="Settings" />
+
+            <item
+                android:id="@+id/menu_feed_about"
+                android:icon="@drawable/ic_info"
+                android:title="About" />
+
+        </menu>
+    </item>
+
+
+</menu>

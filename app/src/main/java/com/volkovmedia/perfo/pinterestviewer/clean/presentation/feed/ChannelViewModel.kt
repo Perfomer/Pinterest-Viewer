@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.Channel
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.ChannelDetails
+import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.RequestResult
 import com.volkovmedia.perfo.pinterestviewer.clean.domain.ROOT_URL
 import com.volkovmedia.perfo.pinterestviewer.clean.domain.interactors.FeedDataProvideInteractor
 
@@ -22,7 +23,10 @@ class ChannelViewModel(private val feedDataProvideInteractor: FeedDataProvideInt
 
     override fun onUrlSet() {
         super.onUrlSet()
-        channelLiveData.postValue(feedDataProvideInteractor.requestChannelDetails(url))
+        val result = feedDataProvideInteractor.requestChannelDetails(url)
+        when (result) {
+            is RequestResult.Data -> channelLiveData.postValue(result.data)
+        }
     }
 
 }

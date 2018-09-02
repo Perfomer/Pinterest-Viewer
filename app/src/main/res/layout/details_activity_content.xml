@@ -55,7 +55,7 @@
                     <TextView
                         android:id="@+id/details_likes_count"
                         style="@style/DetailsIntValueCounterTextStyle"
-                        tools:text="256" />
+                        tools:text="2" />
 
                 </LinearLayout>
 
@@ -163,6 +163,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:scaleType="centerCrop"
+                        android:src="@color/colorDivider"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:riv_oval="true"

@@ -7,7 +7,7 @@ import com.volkovmedia.perfo.pinterestviewer.utils.extensions.parseTime
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class DetailsPageParser(): JsoupPageParser<FeedItemDetails>() {
+class DetailsPageParser : JsoupPageParser<FeedItemDetails>() {
 
     override fun Document.parse(): FeedItemDetails {
         val hostName = getElementsByClass("image_frame")

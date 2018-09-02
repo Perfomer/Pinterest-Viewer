@@ -10,19 +10,19 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 
 fun ImageView.load(url: String, options: (GlideExecutor.() -> Unit)? = null) {
-    val requestBuilder = Glide.with(this).load(url)
+    val requestBuilder = Glide.with(context.applicationContext).load(url)
     options?.invoke(GlideExecutor(requestBuilder))
     requestBuilder.into(this)
 }
 
 fun ImageView.load(drawable: Drawable, options: (GlideExecutor.() -> Unit)? = null) {
-    val requestBuilder = Glide.with(this).load(drawable)
+    val requestBuilder = Glide.with(context.applicationContext).load(drawable)
     options?.invoke(GlideExecutor(requestBuilder))
     requestBuilder.into(this)
 }
 
 fun String.loadImage(context: Context, options: (GlideExecutor.() -> Unit)? = null): Drawable {
-    val requestManager = Glide.with(context)
+    val requestManager = Glide.with(context.applicationContext)
 
     val requestBuilder = when (fileExtension) {
         "gif" -> requestManager.asGif()

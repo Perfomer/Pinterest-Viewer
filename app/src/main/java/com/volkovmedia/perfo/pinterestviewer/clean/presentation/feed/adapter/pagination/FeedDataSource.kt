@@ -4,6 +4,7 @@ import android.arch.paging.PositionalDataSource
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.FeedPageParser.Companion.PAGE_SIZE
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageRequest
+import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.RequestResult
 import com.volkovmedia.perfo.pinterestviewer.clean.domain.interactors.FeedDataProvideInteractor
 
 class FeedDataSource(private val feedDataProvideInteractor: FeedDataProvideInteractor,
@@ -19,7 +20,9 @@ class FeedDataSource(private val feedDataProvideInteractor: FeedDataProvideInter
 
         initialLoadingListener(false)
 
-        callback.onResult(feedItems, params.requestedStartPosition)
+        when (feedItems) {
+            is RequestResult.Data -> callback.onResult(feedItems.data, params.requestedStartPosition)
+        }
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<FeedItem>) {
@@ -29,7 +32,12 @@ class FeedDataSource(private val feedDataProvideInteractor: FeedDataProvideInter
 
         val result = if (startPosition >= PAGE_SIZE) {
             val request = PageRequest(url, startPosition / PAGE_SIZE)
-            feedDataProvideInteractor.requestFeedItems(request.getPagedUrl())
+            val feedItems = feedDataProvideInteractor.requestFeedItems(request.getPagedUrl())
+
+            when (feedItems) {
+                is RequestResult.Data -> feedItems.data
+                is RequestResult.Error -> emptyList()
+            }
         } else {
             emptyList()
         }
