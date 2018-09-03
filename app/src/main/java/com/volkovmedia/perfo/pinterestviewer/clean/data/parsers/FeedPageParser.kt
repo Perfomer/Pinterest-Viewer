@@ -13,9 +13,9 @@ class FeedPageParser() : JsoupPageParser<List<FeedItem>>() {
                 val imageWrapper = it.getElementsByClass("image_wrapper")[0]
                 val smallButtons = it.getElementsByClass("btn-sm")
 
-                val sharesCount = smallButtons[0].extractSmallButtonValue()
-                val likesCount = smallButtons[1].extractSmallButtonValue()
-                val commentsCount = smallButtons[2].extractSmallButtonValue()
+                val sharesCount = smallButtons[0].smallButtonValue
+                val likesCount = smallButtons[1].smallButtonValue
+                val commentsCount = smallButtons[2].smallButtonValue
                 val fullPageUrl = imageWrapper.attr("href")
                 val title = imageWrapper.attr("title")
                 val imageUrl = imageWrapper.select("img").attr("data-src")
@@ -47,11 +47,11 @@ class FeedPageParser() : JsoupPageParser<List<FeedItem>>() {
                 return TimeUnit.MINUTES.toMillis(timeUnits[0].toLong()) + TimeUnit.SECONDS.toMillis(timeUnits[1].toLong())
             }
 
-        private fun Element.extractSmallButtonValue(): Int {
-            val likeValue = html()
-            val lastChar = likeValue.indexOfLast { it == '>' } + 2
-            return likeValue.substring(lastChar).toInt()
-        }
+        private val Element.smallButtonValue: Int
+            get() = with(html()) {
+                val lastChar = indexOfLast { it == '>' } + 2
+                return substring(lastChar).toInt()
+            }
 
     }
 

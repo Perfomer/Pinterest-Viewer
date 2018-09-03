@@ -1,8 +1,6 @@
 package com.volkovmedia.perfo.pinterestviewer.clean.domain.interactors
 
-import com.volkovmedia.perfo.pinterestviewer.clean.domain.repository.PinterestRepository
-import com.volkovmedia.perfo.pinterestviewer.utils.extensions.requestDocument
-import kotlinx.coroutines.experimental.async
+import com.volkovmedia.perfo.pinterestviewer.clean.domain.repository.pinterest.PinterestRepository
 
 class FeedDataProvideInteractor(private val pinterestRepository: PinterestRepository) {
 

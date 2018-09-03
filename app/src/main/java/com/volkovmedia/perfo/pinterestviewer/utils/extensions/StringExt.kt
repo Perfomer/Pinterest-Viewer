@@ -6,6 +6,7 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import com.bumptech.glide.Glide
+import com.volkovmedia.perfo.pinterestviewer.clean.domain.ROOT_URL
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.text.SimpleDateFormat
@@ -21,9 +22,14 @@ fun String.parseTime(format: String): Long {
 
 fun String.requestDocument(): Document = Jsoup.connect(this).get()
 
-fun String.requestPageSource(): String = Jsoup.connect(this).get().html()
+fun String.requestPageSource(): String = requestDocument().html()
 
-fun String.toSpan() : Spanned {
+fun String.correctRoot(): String {
+    return if (!startsWith("http")) ROOT_URL.dropLast(1) + this
+    else this
+}
+
+fun String.toSpan(): Spanned {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(this, Html.FROM_HTML_MODE_COMPACT);
     } else {

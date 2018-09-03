@@ -1,4 +1,4 @@
-package com.volkovmedia.perfo.pinterestviewer.clean.domain.repository
+package com.volkovmedia.perfo.pinterestviewer.clean.domain.repository.pinterest
 
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.ChannelDetails
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem

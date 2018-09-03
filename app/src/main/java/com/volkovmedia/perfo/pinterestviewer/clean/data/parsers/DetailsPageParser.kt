@@ -2,7 +2,7 @@ package com.volkovmedia.perfo.pinterestviewer.clean.data.parsers
 
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.*
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.JsoupPageParser
-import com.volkovmedia.perfo.pinterestviewer.clean.domain.ROOT_URL
+import com.volkovmedia.perfo.pinterestviewer.utils.extensions.correctRoot
 import com.volkovmedia.perfo.pinterestviewer.utils.extensions.parseTime
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -50,10 +50,7 @@ class DetailsPageParser : JsoupPageParser<FeedItemDetails>() {
                     .map {
                         val nameElement = it.select("a")
 
-                        val avatar = with(it.select("img").attr("src")) {
-                            if (!startsWith("http")) ROOT_URL.dropLast(1) + this
-                            else this
-                        }
+                        val avatar = it.select("img").attr("src").correctRoot()
 
                         val name = nameElement.text()
                         val url = nameElement.attr("href")
