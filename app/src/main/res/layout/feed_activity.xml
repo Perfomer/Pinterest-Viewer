@@ -5,7 +5,7 @@
     android:id="@+id/feed_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".clean.presentation.feed.FeedActivity"
+    tools:context=".clean.presentation.categories.CategoriesActivity"
     tools:openDrawer="start">
 
     <include

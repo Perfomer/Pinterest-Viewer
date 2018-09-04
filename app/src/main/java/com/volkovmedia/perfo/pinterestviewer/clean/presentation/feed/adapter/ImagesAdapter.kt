@@ -9,9 +9,9 @@ import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.ChannelDetails
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
 import com.volkovmedia.perfo.pinterestviewer.clean.presentation.base.BaseViewHolder
 import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.adapter.channel.ChannelHeaderViewHolder
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.adapter.pagination.PhotoDiffUtilCallback
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.GridLayoutManager
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.adapter.pagination.PhotoDiffUtilCallback
 
 class ImagesAdapter(diffUtilCallback: PhotoDiffUtilCallback,
                     private val gridLayoutManager: GridLayoutManager,
@@ -98,8 +98,14 @@ class ImagesAdapter(diffUtilCallback: PhotoDiffUtilCallback,
         notifyItemInserted(0)
     }
 
+    private fun getRealPosition(position: Int): Int {
+//        if (::channel.isInitialized) return position + 1
+
+        return position
+    }
+
     private fun onImageClick(position: Int) {
-        onClickListener(getItem(position)!!)
+        onClickListener(getItem(getRealPosition(position))!!)
     }
 
     private fun isHeader(position: Int): Boolean {

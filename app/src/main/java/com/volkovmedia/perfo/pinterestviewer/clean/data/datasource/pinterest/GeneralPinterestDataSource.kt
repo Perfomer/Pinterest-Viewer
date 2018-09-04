@@ -1,5 +1,6 @@
 package com.volkovmedia.perfo.pinterestviewer.clean.data.datasource.pinterest
 
+import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.Category
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.ChannelDetails
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItemDetails
@@ -15,6 +16,10 @@ class GeneralPinterestDataSource(private val cache: CachePinterestDataSource,
 
     override fun getFeedItems(url: String): RequestResult<List<FeedItem>> {
         return extractData({ getFeedItems(url) }, { putFeedItems(url, it) })
+    }
+
+    override fun getCategories(url: String): RequestResult<List<Category>> {
+        return extractData({ getCategories(url) }, { putCategories(url, it) })
     }
 
     override fun getFeedItemDetails(url: String): RequestResult<FeedItemDetails> {

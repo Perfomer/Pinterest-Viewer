@@ -1,8 +1,10 @@
 package com.volkovmedia.perfo.pinterestviewer.clean.data.datasource.pinterest
 
+import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.Category
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.ChannelDetails
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItemDetails
+import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.CategoriesPageParser
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.ChannelPageParser
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.DetailsPageParser
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.FeedPageParser
@@ -14,11 +16,16 @@ import org.koin.standalone.KoinComponent
 
 class NetworkPinterestDataSource(private val pageDataSource: PageRepository,
                                  private val channelParser: ChannelPageParser,
+                                 private val categoriesPageParser: CategoriesPageParser,
                                  private val feedParser: FeedPageParser,
                                  private val detailsParser: DetailsPageParser) : PinterestRepository, KoinComponent {
 
     override fun getFeedItems(url: String): RequestResult<List<FeedItem>> {
         return feedParser.extractData(url)
+    }
+
+    override fun getCategories(url: String): RequestResult<List<Category>> {
+        return categoriesPageParser.extractData(url)
     }
 
     override fun getFeedItemDetails(url: String): RequestResult<FeedItemDetails> {

@@ -2,7 +2,7 @@ package com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.adapter.pa
 
 import android.arch.paging.PositionalDataSource
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.FeedPageParser.Companion.PAGE_SIZE
+import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.FeedPageParser.Companion.FEED_PAGE_SIZE
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageRequest
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.RequestResult
 import com.volkovmedia.perfo.pinterestviewer.clean.domain.interactors.FeedDataProvideInteractor
@@ -30,8 +30,8 @@ class FeedDataSource(private val feedDataProvideInteractor: FeedDataProvideInter
 
         rangeLoadingListener(true)
 
-        val result = if (startPosition >= PAGE_SIZE) {
-            val request = PageRequest(url, startPosition / PAGE_SIZE)
+        val result = if (startPosition >= FEED_PAGE_SIZE) {
+            val request = PageRequest(url, startPosition / FEED_PAGE_SIZE)
             val feedItems = feedDataProvideInteractor.requestFeedItems(request.getPagedUrl())
 
             when (feedItems) {

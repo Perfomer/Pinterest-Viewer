@@ -15,8 +15,9 @@ import android.view.MenuItem
 import com.volkovmedia.perfo.pinterestviewer.R
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.Channel
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.FeedPageParser.Companion.PAGE_SIZE
+import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.FeedPageParser.Companion.FEED_PAGE_SIZE
 import com.volkovmedia.perfo.pinterestviewer.clean.domain.ROOT_URL
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.categories.CategoriesActivity
 import com.volkovmedia.perfo.pinterestviewer.clean.presentation.details.DetailsActivity
 import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.adapter.ImagesAdapter
 import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.adapter.pagination.FeedDataSourceFactory
@@ -79,6 +80,10 @@ class FeedActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_feed_categories -> CategoriesActivity.startActivity(this)
+        }
+
         return true
     }
 
@@ -101,8 +106,8 @@ class FeedActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initPagination() {
         val config = PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
-                .setPageSize(PAGE_SIZE)
-                .setInitialLoadSizeHint(PAGE_SIZE)
+                .setPageSize(FEED_PAGE_SIZE)
+                .setInitialLoadSizeHint(FEED_PAGE_SIZE)
                 .build()
 
         val dataSourceFactory = FeedDataSourceFactory(viewModel.url, ::onInitialLoading, ::onRangeLoading)

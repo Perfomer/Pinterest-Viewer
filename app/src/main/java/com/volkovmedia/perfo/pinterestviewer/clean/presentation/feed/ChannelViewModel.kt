@@ -13,7 +13,7 @@ class ChannelViewModel(private val feedDataProvideInteractor: FeedDataProvideInt
     : FeedViewModel(feedDataProvideInteractor) {
 
     init {
-        url = ROOT_URL.dropLast(1) + channel.url
+        url = channel.url
     }
 
     val channelDetails: LiveData<ChannelDetails>

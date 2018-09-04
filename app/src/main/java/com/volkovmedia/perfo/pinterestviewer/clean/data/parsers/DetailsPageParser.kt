@@ -11,20 +11,20 @@ class DetailsPageParser : JsoupPageParser<FeedItemDetails>() {
 
     override fun Document.parse(): FeedItemDetails {
         val hostName = getElementsByClass("image_frame")
-        val author = getElementsByClass("title").select("a")[0]
+        val channel = getElementsByClass("title").select("a")[0]
 
         val outUrl = hostName.select("a")?.attr("href")
         val imageUrl = hostName.select("img")!!.attr("src")
         val time = select("time").attr("datetime").parseTime()
-        val authorName = author.text()
-        val authorUrl = author.attr("href")
+        val channelName = channel.text()
+        val channelUrl = channel.attr("href").correctRoot()
         val videoUrl = select("video").attr("src")
         val thumbnail = getElementsByClass("big_thumbnail")[0].select("img").attr("src")
 
         return if (videoUrl.isNullOrBlank()) {
-            FeedItemDetails.ImageDetails(outUrl, imageUrl, time, Channel(authorName, authorUrl, thumbnail), comments, tags)
+            FeedItemDetails.ImageDetails(outUrl, imageUrl, time, Channel(channelName, channelUrl, thumbnail), comments, tags)
         } else {
-            FeedItemDetails.VideoDetails(outUrl, imageUrl, time, Channel(authorName, authorUrl, thumbnail), comments, tags, videoUrl)
+            FeedItemDetails.VideoDetails(outUrl, imageUrl, time, Channel(channelName, channelUrl, thumbnail), comments, tags, videoUrl)
         }
     }
 

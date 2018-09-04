@@ -2,6 +2,7 @@ package com.volkovmedia.perfo.pinterestviewer.clean.data.parsers
 
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.JsoupPageParser
+import com.volkovmedia.perfo.pinterestviewer.utils.extensions.correctRoot
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import java.util.concurrent.TimeUnit
@@ -16,7 +17,7 @@ class FeedPageParser() : JsoupPageParser<List<FeedItem>>() {
                 val sharesCount = smallButtons[0].smallButtonValue
                 val likesCount = smallButtons[1].smallButtonValue
                 val commentsCount = smallButtons[2].smallButtonValue
-                val fullPageUrl = imageWrapper.attr("href")
+                val fullPageUrl = imageWrapper.attr("href").correctRoot()
                 val title = imageWrapper.attr("title")
                 val imageUrl = imageWrapper.select("img").attr("data-src")
                 val duration = it.duration
@@ -30,7 +31,7 @@ class FeedPageParser() : JsoupPageParser<List<FeedItem>>() {
 
     companion object {
 
-        const val PAGE_SIZE = 96
+        const val FEED_PAGE_SIZE = 96
 
         private val Element.isHD: Boolean
             get() {
