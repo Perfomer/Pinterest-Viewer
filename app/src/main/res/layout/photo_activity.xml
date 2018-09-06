@@ -1,21 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fullitem_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:transitionGroup="false"
-    android:background="@android:color/black"
-    tools:context=".clean.presentation.photo.PhotoActivity">
+    tools:context=".clean.presentation.categories.CategoriesActivity">
 
-    <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/photo_image"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/photo_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/photo_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        android:keepScreenOn="true"
-        android:scaleType="fitCenter"
-        tools:src="@drawable/test_ass" />
+        android:background="@android:color/black"
+        android:transitionGroup="false"
+        tools:context=".clean.presentation.photo.PhotoActivity">
 
-</FrameLayout>
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/photo_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:keepScreenOn="true"
+            android:scaleType="fitCenter"
+            tools:src="@drawable/test_ass" />
+
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>

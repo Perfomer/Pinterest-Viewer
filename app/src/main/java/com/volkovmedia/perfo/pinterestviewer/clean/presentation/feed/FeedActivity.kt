@@ -25,6 +25,7 @@ import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.adapter.pag
 import com.volkovmedia.perfo.pinterestviewer.di.PARAM_CHANNEL
 import com.volkovmedia.perfo.pinterestviewer.di.PARAM_URL
 import com.volkovmedia.perfo.pinterestviewer.utils.extensions.isVisible
+import com.volkovmedia.perfo.pinterestviewer.utils.extensions.toast
 import kotlinx.android.synthetic.main.feed_activity.*
 import kotlinx.android.synthetic.main.feed_activity_appbar.*
 import kotlinx.android.synthetic.main.feed_activity_content.*
@@ -81,7 +82,11 @@ class FeedActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.menu_feed_home -> FeedActivity.startActivityAndClearStack(this)
+            R.id.menu_feed_subscriptions -> toast("You haven't logged in")
             R.id.menu_feed_categories -> CategoriesActivity.startActivity(this)
+            R.id.menu_feed_settings -> toast("Not ready yet")
+            R.id.menu_feed_about -> toast("Not ready yet")
         }
 
         return true
@@ -142,6 +147,12 @@ class FeedActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fun startActivity(context: Context, channel: Channel) = startActivity(context) {
             putExtra(KEY_FEED_TYPE, FeedType.CHANNEL.ordinal)
             putExtra(KEY_CHANNEL, channel)
+        }
+
+        fun startActivityAndClearStack(context: Context) {
+            startActivity(context) {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
         }
 
         private fun startActivity(context: Context, intentInit: Intent.() -> Unit) {

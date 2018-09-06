@@ -13,6 +13,7 @@ import com.volkovmedia.perfo.pinterestviewer.clean.presentation.categories.adapt
 import com.volkovmedia.perfo.pinterestviewer.clean.presentation.categories.adapter.CategoryDiffUtilCallback
 import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.FeedActivity
 import com.volkovmedia.perfo.pinterestviewer.utils.extensions.isVisible
+import kotlinx.android.synthetic.main.feed_activity.*
 import kotlinx.android.synthetic.main.feed_activity_appbar.*
 import kotlinx.android.synthetic.main.feed_activity_content.*
 import kotlinx.coroutines.experimental.android.UI
@@ -33,8 +34,9 @@ class CategoriesActivity : AppCompatActivity() {
         setContentView(R.layout.feed_activity)
         setSupportActionBar(toolBar)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        feed_drawer.isEnabled = false
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         onInitialLoading(true)
 
         feed_list.adapter = categoriesAdapter

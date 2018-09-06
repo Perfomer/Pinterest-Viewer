@@ -39,6 +39,9 @@ open class FeedViewModel protected constructor(private val feedDataProvideIntera
                 itemsList = result.data
                 itemsLiveData.postValue(itemsList)
             }
+            is RequestResult.Error -> {
+                result.throwable
+            }
         }
     }
 

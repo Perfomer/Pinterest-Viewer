@@ -39,7 +39,7 @@ class DetailsPageParser : JsoupPageParser<FeedItemDetails>() {
                 val tags = getElementsByClass("tags")
                 if (tags.isEmpty()) return listOf()
 
-                return tags[0].children().map { tag -> Tag(tag.text(), tag.attr("href")) }
+                return tags[0].children().map { tag -> Tag(tag.text(), tag.attr("href").correctRoot()) }
             }
 
         private val Document.comments
