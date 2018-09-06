@@ -14,6 +14,7 @@ class CachePinterestDataSource : MutablePinterestRepository, MutableDataSource {
     private val categories = mutableMapOf<String, List<Category>>()
     private val feedItemsDetails = mutableMapOf<String, FeedItemDetails>()
     private val channelsDetails = mutableMapOf<String, ChannelDetails>()
+    private val pageTitles = mutableMapOf<String, String>()
 
     override fun getFeedItems(url: String): RequestResult<List<FeedItem>> {
         return feedItems.extractData(url)
@@ -31,6 +32,10 @@ class CachePinterestDataSource : MutablePinterestRepository, MutableDataSource {
         return channelsDetails.extractData(url)
     }
 
+    override fun getPageTitle(url: String): RequestResult<String> {
+        return pageTitles.extractData(url)
+    }
+
     override fun putFeedItems(url: String, data: RequestResult<List<FeedItem>>) {
         feedItems.putData(url, data)
     }
@@ -45,6 +50,10 @@ class CachePinterestDataSource : MutablePinterestRepository, MutableDataSource {
 
     override fun putChannelDetails(url: String, data: RequestResult<ChannelDetails>) {
         channelsDetails.putData(url, data)
+    }
+
+    override fun putPageTitle(url: String, data: RequestResult<String>) {
+        pageTitles.putData(url, data)
     }
 
 }

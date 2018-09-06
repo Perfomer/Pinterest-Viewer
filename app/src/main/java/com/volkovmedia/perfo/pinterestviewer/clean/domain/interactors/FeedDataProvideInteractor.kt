@@ -8,4 +8,6 @@ class FeedDataProvideInteractor(private val pinterestRepository: PinterestReposi
 
     fun requestChannelDetails(url: String) = pinterestRepository.getChannelDetails(url)
 
+    fun requestPageTitle(url: String) = pinterestRepository.getPageTitle(url)
+
 }

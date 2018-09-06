@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.Window
 import com.bumptech.glide.request.RequestOptions
 import com.volkovmedia.perfo.pinterestviewer.R
+import com.volkovmedia.perfo.pinterestviewer.utils.extensions.isVisible
 import com.volkovmedia.perfo.pinterestviewer.utils.extensions.load
 import kotlinx.android.synthetic.main.photo_activity.*
 import org.koin.android.architecture.ext.viewModel
@@ -17,6 +18,7 @@ import org.koin.android.architecture.ext.viewModel
 class PhotoActivity : AppCompatActivity() {
 
     private val photoView by lazy { photo_image }
+    private val loadingIndicator by lazy { photo_loading }
     private val toolBar by lazy { photo_toolbar }
 
     private val viewModel: PhotoViewModel by viewModel()
@@ -33,8 +35,8 @@ class PhotoActivity : AppCompatActivity() {
         val fullUrl = intent.getStringExtra(KEY_FULL_URL)
 
         with(viewModel) {
-            preview.observe(this@PhotoActivity, Observer { it?.render() })
-            full.observe(this@PhotoActivity, Observer { it?.render() })
+            preview.observe(this@PhotoActivity, Observer { it?.render(true) })
+            full.observe(this@PhotoActivity, Observer { it?.render(false) })
 
             setUrls(previewUrl, fullUrl)
         }
@@ -50,7 +52,10 @@ class PhotoActivity : AppCompatActivity() {
         }
     }
 
-    private fun Drawable.render() = photoView.load(this) { requestOptions = RequestOptions.centerInsideTransform() }
+    private fun Drawable.render(showProgressBar: Boolean) {
+        loadingIndicator.isVisible = showProgressBar
+        photoView.load(this) { requestOptions = RequestOptions.centerInsideTransform() }
+    }
 
     companion object {
 

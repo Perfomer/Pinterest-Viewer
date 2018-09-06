@@ -16,4 +16,6 @@ interface MutablePinterestRepository : PinterestRepository {
 
     fun putChannelDetails(url: String, data: RequestResult<ChannelDetails>)
 
+    fun putPageTitle(url: String, data: RequestResult<String>)
+
 }

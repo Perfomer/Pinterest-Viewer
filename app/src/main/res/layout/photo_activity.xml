@@ -23,7 +23,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/black"
@@ -40,6 +40,14 @@
             android:scaleType="fitCenter"
             tools:src="@drawable/test_ass" />
 
-    </FrameLayout>
+        <ProgressBar
+            android:id="@+id/photo_loading"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="16dp" />
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

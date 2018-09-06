@@ -4,10 +4,7 @@ import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.Category
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.ChannelDetails
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItemDetails
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.CategoriesPageParser
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.ChannelPageParser
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.DetailsPageParser
-import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.FeedPageParser
+import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.*
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.PageParser
 import com.volkovmedia.perfo.pinterestviewer.clean.data.parsers.base.RequestResult
 import com.volkovmedia.perfo.pinterestviewer.clean.domain.repository.page.PageRepository
@@ -15,6 +12,7 @@ import com.volkovmedia.perfo.pinterestviewer.clean.domain.repository.pinterest.P
 import org.koin.standalone.KoinComponent
 
 class NetworkPinterestDataSource(private val pageDataSource: PageRepository,
+                                 private val titleParser: TitlePageParser,
                                  private val channelParser: ChannelPageParser,
                                  private val categoriesPageParser: CategoriesPageParser,
                                  private val feedParser: FeedPageParser,
@@ -34,6 +32,10 @@ class NetworkPinterestDataSource(private val pageDataSource: PageRepository,
 
     override fun getChannelDetails(url: String): RequestResult<ChannelDetails> {
         return channelParser.extractData(url)
+    }
+
+    override fun getPageTitle(url: String): RequestResult<String> {
+        return titleParser.extractData(url)
     }
 
     private fun <T> PageParser<T>.extractData(url: String): RequestResult<T> {

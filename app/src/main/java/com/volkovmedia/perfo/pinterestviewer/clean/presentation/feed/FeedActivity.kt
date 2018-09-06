@@ -49,6 +49,8 @@ class FeedActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.feed_activity)
         setSupportActionBar(toolBar)
 
+        initDrawerLayout()
+
         val feedTypeInt = intent.getIntExtra(KEY_FEED_TYPE, FeedType.QUERY.ordinal)
         val feedType = FeedType.values()[feedTypeInt]
 
@@ -56,6 +58,11 @@ class FeedActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             FeedType.QUERY -> {
                 val url = intent.getStringExtra(KEY_URL) ?: ROOT_URL
                 viewModel = get(feedType.name) { mapOf(PARAM_URL to url) }
+
+                if (url != ROOT_URL) {
+                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                    viewModel.title.observe(this, Observer { toolBar.title = it })
+                }
             }
             FeedType.CHANNEL -> {
                 val channel = intent.getParcelableExtra<Channel>(KEY_CHANNEL)
@@ -63,12 +70,13 @@ class FeedActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val channelViewModel = viewModel as ChannelViewModel
 
                 channelViewModel.channelDetails.observe(this, Observer { imagesAdapter.setChannelData(channel, it!!) })
+
+                toolBar.title = channel.name
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
             }
         }
 
         feed_list.adapter = imagesAdapter
-
-        initDrawerLayout()
         initPagination()
     }
 
@@ -82,6 +90,7 @@ class FeedActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            android.R.id.home -> onBackPressed()
             R.id.menu_feed_home -> FeedActivity.startActivityAndClearStack(this)
             R.id.menu_feed_subscriptions -> toast("You haven't logged in")
             R.id.menu_feed_categories -> CategoriesActivity.startActivity(this)

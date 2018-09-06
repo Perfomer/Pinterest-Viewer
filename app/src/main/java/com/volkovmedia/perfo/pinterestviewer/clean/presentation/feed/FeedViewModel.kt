@@ -14,6 +14,9 @@ open class FeedViewModel protected constructor(private val feedDataProvideIntera
     val items: LiveData<List<FeedItem>>
         get() = itemsLiveData
 
+    val title: LiveData<String>
+        get() = titleLiveData
+
     var url: String = ""
         protected set(value) {
             field = value
@@ -22,7 +25,7 @@ open class FeedViewModel protected constructor(private val feedDataProvideIntera
 
     private val itemsLiveData = MutableLiveData<List<FeedItem>>()
 
-    private var itemsList = listOf<FeedItem>()
+    private val titleLiveData = MutableLiveData<String>()
 
     constructor(feedInteractor: FeedDataProvideInteractor, url: String) : this(feedInteractor) {
         this.url = url
@@ -32,16 +35,17 @@ open class FeedViewModel protected constructor(private val feedDataProvideIntera
     protected open fun onUrlSet() {
         if (url.isBlank()) return
 
-        val result = feedDataProvideInteractor.requestFeedItems(url)
+        url.request(itemsLiveData) { requestFeedItems(it) }
+        url.request(titleLiveData) { requestPageTitle(it) }
+    }
+
+    protected fun <T> String.request(liveData: MutableLiveData<T>,
+                                     request: FeedDataProvideInteractor.(String) -> RequestResult<T>) {
+        val result = feedDataProvideInteractor.request(this)
 
         when (result) {
-            is RequestResult.Data -> {
-                itemsList = result.data
-                itemsLiveData.postValue(itemsList)
-            }
-            is RequestResult.Error -> {
-                result.throwable
-            }
+            is RequestResult.Data -> liveData.postValue(result.data)
+            is RequestResult.Error -> result.throwable
         }
     }
 

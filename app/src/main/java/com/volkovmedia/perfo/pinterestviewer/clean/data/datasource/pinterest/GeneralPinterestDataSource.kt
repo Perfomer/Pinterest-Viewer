@@ -30,6 +30,10 @@ class GeneralPinterestDataSource(private val cache: CachePinterestDataSource,
         return extractData({ getChannelDetails(url) }, { putChannelDetails(url, it) })
     }
 
+    override fun getPageTitle(url: String): RequestResult<String> {
+        return extractData({ getPageTitle(url) }, { putPageTitle(url, it) })
+    }
+
     private fun <T> extractData(request: PinterestRepository.() -> RequestResult<T>,
                                 caching: MutablePinterestRepository.(RequestResult<T>) -> Unit): RequestResult<T> {
         val cachedData = request(cache)

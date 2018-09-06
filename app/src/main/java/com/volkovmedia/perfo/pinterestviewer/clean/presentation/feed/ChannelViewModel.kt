@@ -23,10 +23,7 @@ class ChannelViewModel(private val feedDataProvideInteractor: FeedDataProvideInt
 
     override fun onUrlSet() {
         super.onUrlSet()
-        val result = feedDataProvideInteractor.requestChannelDetails(url)
-        when (result) {
-            is RequestResult.Data -> channelLiveData.postValue(result.data)
-        }
+        url.request(channelLiveData) { requestChannelDetails(it) }
     }
 
 }

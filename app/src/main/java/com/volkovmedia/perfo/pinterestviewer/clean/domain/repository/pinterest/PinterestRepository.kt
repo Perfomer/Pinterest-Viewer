@@ -17,4 +17,6 @@ interface PinterestRepository {
 
     fun getChannelDetails(url: String): RequestResult<ChannelDetails>
 
+    fun getPageTitle(url: String): RequestResult<String>
+
 }
