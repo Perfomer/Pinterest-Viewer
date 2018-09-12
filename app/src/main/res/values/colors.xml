@@ -7,6 +7,7 @@
 
     <color name="textPrimary">#212121</color>
     <color name="textSecondary">#757575</color>
+    <color name="textSecondaryLight">#aeaeae</color>
 
     <color name="colorDivider">#BDBDBD</color>
 

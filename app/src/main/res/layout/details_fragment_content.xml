@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/details_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".clean.presentation.ui.details.DetailsFragment"
+    tools:ignore="ContentDescription,UseCompoundDrawables">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/details_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                tools:text="Incredible big load vid" />
+
+            <LinearLayout style="@style/DetailsIntValueCounterStyle">
+
+                <ImageView
+                    style="@style/DetailsIntValueCounterIconStyle"
+                    android:src="@drawable/ic_like" />
+
+                <TextView
+                    android:id="@+id/details_likes_count"
+                    style="@style/DetailsIntValueCounterTextStyle"
+                    tools:text="2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/DetailsIntValueCounterStyle"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="20dp">
+
+                <ImageView
+                    style="@style/DetailsIntValueCounterIconStyle"
+                    android:src="@drawable/ic_pin" />
+
+                <TextView
+                    android:id="@+id/details_pins_count"
+                    style="@style/DetailsIntValueCounterTextStyle"
+                    tools:text="256" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--<ProgressBar-->
+        <!--android:id="@+id/details_progressbar"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--tools:visibility="gone" />-->
+
+        <LinearLayout
+            android:id="@+id/details_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/details_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                tools:text="21 April 2018, 16:05" />
+
+            <TextView
+                android:id="@+id/details_tags_header"
+                style="@style/HeaderTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="Tags" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/details_tags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                app:alignContent="stretch"
+                app:alignItems="stretch"
+                app:flexWrap="wrap" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/colorChipBackground" />
+
+            <TextView
+                android:id="@+id/details_channel_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Pinned onto the board"
+                app:layout_constraintEnd_toStartOf="@+id/details_channel_follow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/details_channel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_channel_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="4dp"
+                android:paddingEnd="24dp"
+                android:paddingStart="4dp"
+                android:paddingTop="4dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/details_channel_thumbnail"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    android:src="@color/colorDivider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_oval="true"
+                    tools:src="@drawable/test_ass" />
+
+                <ProgressBar
+                    android:id="@+id/details_progressbar"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/details_channel_thumbnail"
+                    app:layout_constraintEnd_toEndOf="@+id/details_channel_thumbnail"
+                    app:layout_constraintStart_toStartOf="@+id/details_channel_thumbnail"
+                    app:layout_constraintTop_toTopOf="@+id/details_channel_thumbnail" />
+
+                <TextView
+                    android:id="@+id/details_channel_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="[Loading...]"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/details_channel_hint"
+                    app:layout_constraintStart_toEndOf="@+id/details_channel_thumbnail"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Favoritessssss" />
+
+                <TextView
+                    android:id="@+id/details_channel_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Click here to open the channel"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/details_channel_name"
+                    app:layout_constraintTop_toBottomOf="@+id/details_channel_name" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/details_comments_wrap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:visibility="visible">
+
+                <RelativeLayout
+                    android:id="@+id/details_comments_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <View
+                        android:id="@+id/details_comments_title_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorChipBackground" />
+
+                    <TextView
+                        style="@style/HeaderTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@id/details_comments_title_divider"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Comments" />
+
+                    <TextView
+                        android:id="@+id/details_comments_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@id/details_comments_title_divider"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:text="120"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/details_comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:clipToPadding="false"
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp"
+                    tools:listitem="@layout/details_item_comment"
+                    tools:maxItems="3" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

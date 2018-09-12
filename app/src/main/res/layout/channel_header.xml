@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:paddingTop="48dp">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/channel_emp_guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/channel_emp_guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <View
+        android:id="@+id/channel_emp_divider1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/gray_lightest"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/channel_followers_title"
+        style="@style/HeaderTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Followers"
+        app:layout_constraintEnd_toEndOf="@+id/channel_followers_count"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/channel_emp_guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/channel_emp_divider1" />
+
+    <TextView
+        android:id="@+id/channel_followers_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/channel_emp_guideline_end"
+        app:layout_constraintTop_toTopOf="@+id/channel_followers_title"
+        tools:text="16 followers" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/channel_followers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="false"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/channel_followers_title"
+        tools:layout_height="72dp" />
+
+    <Button
+        android:id="@+id/channel_follow_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Follow"
+        app:layout_constraintEnd_toEndOf="@+id/channel_emp_guideline_end"
+        app:layout_constraintStart_toStartOf="@+id/channel_emp_guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/channel_followers" />
+
+    <View
+        android:id="@+id/channel_emp_divider2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/gray_lightest"
+        app:layout_constraintTop_toBottomOf="@+id/channel_follow_button" />
+
+    <TextView
+        android:id="@+id/channel_items_title"
+        style="@style/HeaderTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Items"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/channel_followers_count"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/channel_emp_guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/channel_emp_divider2"
+        app:layout_constraintVertical_bias="0" />
+
+    <TextView
+        android:id="@+id/channel_items_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/channel_emp_guideline_end"
+        app:layout_constraintTop_toTopOf="@+id/channel_items_title"
+        tools:text="1523 items" />
+
+</android.support.constraint.ConstraintLayout>

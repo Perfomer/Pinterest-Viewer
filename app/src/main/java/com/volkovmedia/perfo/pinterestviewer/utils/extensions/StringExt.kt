@@ -29,6 +29,7 @@ fun String.correctRoot(): String {
     else this
 }
 
+@Suppress("DEPRECATION")
 fun String.toSpan(): Spanned {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(this, Html.FROM_HTML_MODE_COMPACT);

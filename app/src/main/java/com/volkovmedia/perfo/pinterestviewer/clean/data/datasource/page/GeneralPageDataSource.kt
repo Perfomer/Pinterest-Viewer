@@ -6,6 +6,7 @@ import com.volkovmedia.perfo.pinterestviewer.clean.domain.repository.page.PageRe
 class GeneralPageDataSource(private val cache: CachePageDataSource,
                             private val network: NetworkPageDataSource) : PageRepository {
 
+    @Synchronized
     override fun getPageSource(url: String): RequestResult<String> {
         val cachedData = cache.getPageSource(url)
 

@@ -16,7 +16,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name=".clean.presentation.feed.FeedActivity"
+            android:name=".clean.presentation.ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,19 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".clean.presentation.categories.CategoriesActivity"
-            android:label="Categories"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".clean.presentation.photo.PhotoActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".clean.presentation.details.DetailsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 

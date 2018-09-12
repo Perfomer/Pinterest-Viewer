@@ -61,6 +61,8 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation "android.arch.paging:runtime:1.0.1"
 
+    implementation 'ru.terrakok.cicerone:cicerone:3.0.0'
+
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.2"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.2"
 

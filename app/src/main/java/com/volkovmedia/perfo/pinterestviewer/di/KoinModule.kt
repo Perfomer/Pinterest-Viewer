@@ -12,14 +12,20 @@ import com.volkovmedia.perfo.pinterestviewer.clean.domain.interactors.DetailsPro
 import com.volkovmedia.perfo.pinterestviewer.clean.domain.interactors.FeedDataProvideInteractor
 import com.volkovmedia.perfo.pinterestviewer.clean.domain.repository.page.PageRepository
 import com.volkovmedia.perfo.pinterestviewer.clean.domain.repository.pinterest.PinterestRepository
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.categories.CategoriesViewModel
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.details.DetailsViewModel
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.ChannelViewModel
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.FeedType
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.feed.FeedViewModel
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.photo.PhotoViewModel
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.navigation.NavigationManager
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.navigation.NavigationManagerImpl
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.categories.CategoriesViewModel
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.details.DetailsViewModel
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.channel.ChannelViewModel
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.feed.FeedType
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.feed.FeedViewModel
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.photo.PhotoViewModel
 import org.koin.android.architecture.ext.viewModel
 import org.koin.dsl.module.applicationContext
+import ru.terrakok.cicerone.Cicerone
+import ru.terrakok.cicerone.Router
+
+typealias CiceroneRouter = Cicerone<Router>
 
 const val PARAM_URL = "url"
 const val PARAM_CHANNEL = "channel"
@@ -40,6 +46,13 @@ val generalModule = applicationContext {
     bean { DetailsPageParser() }
     bean { ChannelPageParser() }
     bean { TitlePageParser() }
+}
+
+val navigationModule = applicationContext {
+    bean { Cicerone.create() }
+    bean { get<CiceroneRouter>().router }
+    bean { get<CiceroneRouter>().navigatorHolder }
+    bean { NavigationManagerImpl(get()) as NavigationManager }
 }
 
 val detailsModule = applicationContext {
