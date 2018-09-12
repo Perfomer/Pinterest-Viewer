@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".clean.presentation.ui.categories.CategoriesFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <co.infinum.mjolnirrecyclerview.MjolnirRecyclerView
         android:id="@+id/general_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
