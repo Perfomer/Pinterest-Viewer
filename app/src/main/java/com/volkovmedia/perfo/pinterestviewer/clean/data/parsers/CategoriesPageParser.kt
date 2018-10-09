@@ -22,7 +22,6 @@ class CategoriesPageParser : JsoupPageParser<List<Category>>() {
     }
 
     companion object {
-        const val CATEGORIES_PAGE_SIZE = 49
 
         private fun Elements.extractUrl(position: Int): String {
             return this[position].attr("href").correctRoot()

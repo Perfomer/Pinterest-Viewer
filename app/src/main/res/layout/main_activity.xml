@@ -5,7 +5,7 @@
     android:id="@+id/main_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".clean.presentation.ui.categories.CategoriesFragment"
+    android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
     <include

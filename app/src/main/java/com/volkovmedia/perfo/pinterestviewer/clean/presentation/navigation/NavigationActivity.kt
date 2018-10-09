@@ -1,8 +1,10 @@
 package com.volkovmedia.perfo.pinterestviewer.clean.presentation.navigation
 
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.design.widget.NavigationView
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.base.BaseActivity
+import android.support.v7.widget.Toolbar
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.screens.base.BaseActivity
 import org.koin.android.ext.android.inject
 import ru.terrakok.cicerone.NavigatorHolder
 

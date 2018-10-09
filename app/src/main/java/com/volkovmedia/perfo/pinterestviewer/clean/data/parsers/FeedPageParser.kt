@@ -31,8 +31,6 @@ class FeedPageParser() : JsoupPageParser<List<FeedItem>>() {
 
     companion object {
 
-        const val FEED_PAGE_SIZE = 96
-
         private val Element.isHD: Boolean
             get() {
                 select("span").filter { it.hasClass("hd") }.forEach { return true }

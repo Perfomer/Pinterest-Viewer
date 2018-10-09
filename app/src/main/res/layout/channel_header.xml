@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:paddingTop="48dp">
+    android:background="@android:color/white">
 
     <android.support.constraint.Guideline
         android:id="@+id/channel_emp_guideline_start"
@@ -21,13 +20,13 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="16dp" />
 
-    <View
-        android:id="@+id/channel_emp_divider1"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/gray_lightest"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<View-->
+        <!--android:id="@+id/channel_emp_divider1"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:background="@color/gray_lightest"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/channel_followers_title"
@@ -39,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="@+id/channel_followers_count"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/channel_emp_guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/channel_emp_divider1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/channel_followers_count"

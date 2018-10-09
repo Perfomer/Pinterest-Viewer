@@ -1,14 +1,9 @@
 package com.volkovmedia.perfo.pinterestviewer.utils.extensions
 
-import android.content.Context
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
-import com.bumptech.glide.Glide
-import com.volkovmedia.perfo.pinterestviewer.clean.domain.ROOT_URL
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
+import com.volkovmedia.perfo.pinterestviewer.BuildConfig
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,12 +15,8 @@ fun String.parseTime(format: String): Long {
     return formatter.parse(this).time
 }
 
-fun String.requestDocument(): Document = Jsoup.connect(this).get()
-
-fun String.requestPageSource(): String = requestDocument().html()
-
 fun String.correctRoot(): String {
-    return if (!startsWith("http")) ROOT_URL.dropLast(1) + this
+    return if (!startsWith("http")) BuildConfig.ROOT_URL.dropLast(1) + this
     else this
 }
 

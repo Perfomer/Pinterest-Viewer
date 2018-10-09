@@ -7,7 +7,7 @@ import java.util.*
 
 
 fun Float.toDp(context: Context): Int {
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, context.getResources().displayMetrics).toInt()
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, context.resources.displayMetrics).toInt()
 }
 
 fun Long.toDateString(): String {

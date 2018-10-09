@@ -1,26 +1,30 @@
 package com.volkovmedia.perfo.pinterestviewer.clean.presentation.navigation
 
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.Channel
 import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItem
-import com.volkovmedia.perfo.pinterestviewer.clean.data.entity.FeedItemDetails
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.categories.CategoriesFragment
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.channel.ChannelFragment
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.details.DetailsFragment
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.feed.FeedFragment
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.photo.PhotoFragment
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.screens.categories.CategoriesFragment
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.screens.channel.ChannelFragment
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.screens.details.DetailsFragment
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.screens.feed.QueryFeedFragment
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.screens.photo.PhotoFragment
+import com.volkovmedia.perfo.pinterestviewer.utils.extensions.toast
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.get
 import ru.terrakok.cicerone.android.SupportFragmentNavigator
 
 class PinterestNavigator(fragmentManager: FragmentManager,
-                         containerId: Int) : SupportFragmentNavigator(fragmentManager, containerId) {
+                         containerId: Int)
+    : SupportFragmentNavigator(fragmentManager, containerId), KoinComponent {
 
     @Suppress("UNCHECKED_CAST")
     override fun createFragment(screenKey: String, data: Any?): Fragment? = when (screenKey) {
         SCREEN_FEED -> {
             when (data) {
-                is String -> FeedFragment.newInstance(data)
-                else -> FeedFragment()
+                is String -> QueryFeedFragment.newInstance(data)
+                else -> QueryFeedFragment()
             }
         }
         SCREEN_CHANNEL -> {
@@ -40,7 +44,7 @@ class PinterestNavigator(fragmentManager: FragmentManager,
     }
 
     override fun showSystemMessage(message: String?) {
-
+        message?.let { get<Context>().toast(it) }
     }
 
     override fun exit() {

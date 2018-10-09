@@ -19,9 +19,6 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/general_toolbar">
 
-            <include
-                layout="@layout/channel_header" />
-
             <android.support.v7.widget.Toolbar
                 android:id="@+id/general_toolbar"
                 android:layout_width="match_parent"
@@ -61,8 +58,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:ellipsize="end"
                         android:gravity="center_vertical"
-                        android:textColor="@android:color/black"
+                        android:textColor="@android:color/white"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/channel_author"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -76,8 +74,9 @@
                         android:id="@+id/channel_author"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
                         android:gravity="center_vertical"
-                        android:textColor="@color/textSecondaryLight"
+                        android:textColor="@color/white_transparent_medium"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/channel_avatar_background"
                         app:layout_constraintEnd_toEndOf="@+id/channel_name"

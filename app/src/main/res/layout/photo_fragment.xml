@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".clean.presentation.ui.categories.CategoriesFragment">
+    tools:context=".clean.presentation.screens.categories.CategoriesFragment">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/general_appbar"
@@ -28,7 +28,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/black"
         android:transitionGroup="false"
-        tools:context=".clean.presentation.ui.photo.PhotoFragment">
+        tools:context=".clean.presentation.screens.photo.PhotoFragment">
 
         <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/photo_image"

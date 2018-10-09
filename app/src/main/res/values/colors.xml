@@ -18,4 +18,6 @@
     <color name="black_transparent_lightest">#08000000</color>
     <color name="black_transparent_light">#20000000</color>
     <color name="black_transparent_medium">#60000000</color>
+
+    <color name="white_transparent_medium">#82ffffff</color>
 </resources>

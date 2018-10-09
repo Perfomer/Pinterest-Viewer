@@ -5,7 +5,7 @@
     android:id="@+id/details_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".clean.presentation.ui.details.DetailsFragment"
+    tools:context=".clean.presentation.screens.details.DetailsFragment"
     tools:ignore="ContentDescription,UseCompoundDrawables">
 
     <LinearLayout
@@ -100,16 +100,16 @@
                 android:layout_marginTop="20dp"
                 android:text="Tags" />
 
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/details_tags"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                app:alignContent="stretch"
-                app:alignItems="stretch"
-                app:flexWrap="wrap" />
+            <!--<com.google.android.flexbox.FlexboxLayout-->
+                <!--android:id="@+id/details_tags"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginTop="4dp"-->
+                <!--app:alignContent="stretch"-->
+                <!--app:alignItems="stretch"-->
+                <!--app:flexWrap="wrap" />-->
 
             <View
                 android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:text="Pinned onto the board"
-                app:layout_constraintEnd_toStartOf="@+id/details_channel_follow"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".clean.presentation.ui.categories.CategoriesFragment">
+    tools:context=".clean.presentation.screens.categories.CategoriesFragment">
 
-    <co.infinum.mjolnirrecyclerview.MjolnirRecyclerView
+    <com.omega_r.libs.omegarecyclerview.OmegaRecyclerView
         android:id="@+id/general_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

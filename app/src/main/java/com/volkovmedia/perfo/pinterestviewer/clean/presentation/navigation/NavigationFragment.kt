@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.Toolbar
 import android.view.View
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.base.BaseActivity
-import com.volkovmedia.perfo.pinterestviewer.clean.presentation.ui.base.BaseFragment
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.screens.base.BaseActivity
+import com.volkovmedia.perfo.pinterestviewer.clean.presentation.screens.base.BaseFragment
 import kotlinx.android.synthetic.main.feed_fragment.*
 import org.koin.android.ext.android.inject
+import org.koin.standalone.KoinComponent
 
-abstract class NavigationFragment : BaseFragment() {
+abstract class NavigationFragment : BaseFragment(), KoinComponent {
 
     private val baseActivity by lazy { activity as BaseActivity }
 

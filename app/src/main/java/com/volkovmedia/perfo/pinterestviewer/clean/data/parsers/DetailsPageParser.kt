@@ -46,6 +46,7 @@ class DetailsPageParser : JsoupPageParser<FeedItemDetails>() {
             get() = select("div")
                     .filter { it.hasClass("comments") }
                     .flatMap { it.select("div") }
+                    .asSequence()
                     .filter { it.hasClass("comment") }
                     .map {
                         val nameElement = it.select("a")
@@ -62,6 +63,7 @@ class DetailsPageParser : JsoupPageParser<FeedItemDetails>() {
 
                         return@map Comment(text, User(name, avatar, url))
                     }
+                    .toList()
     }
 
 }

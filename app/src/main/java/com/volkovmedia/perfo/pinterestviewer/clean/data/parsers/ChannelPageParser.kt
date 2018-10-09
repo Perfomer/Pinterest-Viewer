@@ -14,8 +14,9 @@ class ChannelPageParser : JsoupPageParser<ChannelDetails>() {
 
         val followersCount = channelInfo.extractIntValue("followerCount")
         val pinsCount = channelInfo.extractIntValue("pinCount")
+        val description = getElementsByClass("description")[0].text()
 
-        return ChannelDetails(followersCount, pinsCount, author, followers)
+        return ChannelDetails(followersCount, pinsCount, description, author, followers)
     }
 
     private companion object {
